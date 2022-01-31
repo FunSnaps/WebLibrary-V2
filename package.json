@@ -1,0 +1,24 @@
+{
+  "name": "weblibrary",
+  "version": "1.0.0",
+  "description": "Assessment AAF",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FunSnaps/WebLibrary-V2.git"
+  },
+  "author": "Marcus Enrique Elcamel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FunSnaps/WebLibrary-V2/issues"
+  },
+  "homepage": "https://github.com/FunSnaps/WebLibrary-V2#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.1.9",
+    "nodemon": "^2.0.15"
+  }
+}
