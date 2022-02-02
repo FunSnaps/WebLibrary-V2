@@ -1,18 +1,20 @@
 const express = require("express");
+const asyncHandler = require("express-async-handler");
 const User = require("../models/User");
 const usersRoute = express.Router();
 
 //Register
-usersRoute.post('/register', async (req, res) => {
-    try {
-        const {name, email, password} = req.body;
-        const user = await User.create({name, email, password});
-        console.log(user);
-        res.send(user);
-    } catch (error) {
-        console.log(error);
+usersRoute.route('/register').post(asyncHandler(async (req, res) => {
+    const {name, email, password} = req?.body;
+
+    const existingUser = await User.findOne({email: email});
+    if (existingUser) {
+        throw new Error('The email provided is already tied to an account!');
     }
-});
+    const userCreated = await User.create({name, email, password});
+    res.send(userCreated);
+    })
+);
 
 //Login
 usersRoute.post('/login', (req, res) => {
