@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const dbConnect = () => {
-    mongoose.connect('mongodb+srv://FunSnaps:vBER07Z7I6ApEhCB@weblibrary-v2.cgvf3.mongodb.net/WebLibrary-V2?retryWrites=true&w=majority', {
+    mongoose.connect( process.env.MONGODB_URL,{
         useNewUrlParser: true,
         useUnifiedTopology: true
     }, err => {

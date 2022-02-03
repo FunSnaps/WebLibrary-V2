@@ -36,7 +36,7 @@ usersRoute.route('/login').post(asyncHandler(async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 password: user.password,
-                email: user.email,
+                email: user.password,
                 token: tokenGenerator(user._id),
             });
         } else {
