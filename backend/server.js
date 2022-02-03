@@ -2,7 +2,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const error = require('./middlewares/errorMiddlewareHandler');
 const usersRoute = require('./routes/usersRoute');
+const booksRouter = require('./routes/booksRoute');
 const dbConnect = require('./config/dbConnect');
+
 
 dotenv.config();
 const app = express();
@@ -17,6 +19,7 @@ app.use(error.errorMiddlewareHandler);
 
 //Routes
 app.use('/api/users', usersRoute);
+app.use('/api/books', booksRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port: ${PORT}`);
