@@ -1,8 +1,4 @@
-import {
-    FETCH_BOOK_FAIL,
-    FETCH_BOOK_REQUEST,
-    FETCH_BOOK_SUCCESS,
-} from '../../actions/actionTypes';
+import {FETCH_BOOK_FAIL, FETCH_BOOK_REQUEST, FETCH_BOOK_SUCCESS,} from '../../actions/actionTypes';
 
 const bookListReducer = (state = [], action) => {
     switch (action.type) {
@@ -26,4 +22,4 @@ const bookListReducer = (state = [], action) => {
     }
 };
 
-export { bookListReducer };
+export {bookListReducer};

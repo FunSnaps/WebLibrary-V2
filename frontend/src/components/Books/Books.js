@@ -27,8 +27,8 @@ const Books = () => {
                         <tr>
                             <th scope='col'>Book Name</th>
                             <th scope='col'>Author</th>
-                            <th scope='col'>Action</th>
-                            <th scope='col'>Action</th>
+                            <th scope='col'>Delete</th>
+                            <th scope='col'>Edit</th>
                         </tr>
                         </thead>
                         <tbody>
