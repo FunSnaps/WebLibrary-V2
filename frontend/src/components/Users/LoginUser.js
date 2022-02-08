@@ -1,51 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { registerUserAction } from '../../redux/actions/users/usersActions';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginUserAction} from '../../redux/actions/users/usersActions';
 
-const RegisterUser = ({ history }) => {
-    const [name, setName] = useState('');
+const LoginUser = ({history}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
 
-    //Grab user login from store
-    const userLogin = useSelector(state => state.userLogin);
+    //Grab pieces of data from our store that we care about
+    const state = useSelector(state => {
+        return state.userLogin;
+    });
 
-    const { userInfo } = userLogin;
+    const {loading, userInfo, error} = state;
 
-    //Redirect if user is logged-in/authenticated
-    useEffect(() => {
-        if (userInfo) {
-            history.push('/dashboard');
-        }
-    }, [userInfo]);
-
-    const formSubmitHandler = e => {
+    //Submit handler
+    const loginUserSubmitHandler = e => {
         e.preventDefault();
-        //Dispatch action here
-        dispatch(registerUserAction(name, email, password));
+        console.log(email, password);
+        dispatch(loginUserAction(email, password));
     };
+
+    //Redirect
+    useEffect(() => {
+        if (userInfo) history.push('/profile');
+    }, [state]);
+
     return (
         <div className='row container-height'>
             <div className='col-lg-6 col-md-6 m-auto'>
                 <div className='container'>
-                    <h1 className='text-center'>Register</h1>
+                    {loading && <h1>Loading</h1>}
 
-                    <form onSubmit={formSubmitHandler}>
+                    <form onSubmit={loginUserSubmitHandler}>
                         <fieldset>
-                            <div className='form-group'>
-                                <label htmlFor='exampleInputEmail1'>Name</label>
-                                <input
-                                    value={name}
-                                    onChange={e => setName(e.target.value)}
-                                    type='text'
-                                    className='form-control'
-                                    id='exampleInputEmail1'
-                                    aria-describedby='emailHelp'
-                                    placeholder='Enter Name'
-                                />
-                            </div>
                             <div className='form-group'>
                                 <label htmlFor='exampleInputEmail1'>Email address</label>
                                 <input
@@ -70,7 +59,7 @@ const RegisterUser = ({ history }) => {
                                 />
                             </div>
                             <button type='submit' className='btn btn-info m-auto'>
-                                Register
+                                Login
                             </button>
                         </fieldset>
                     </form>
@@ -80,4 +69,4 @@ const RegisterUser = ({ history }) => {
     );
 };
 
-export default RegisterUser;
+export default LoginUser;

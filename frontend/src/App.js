@@ -4,6 +4,7 @@ import AddBook from "./components/Books/AddBook";
 import Books from "./components/Books/Books";
 import Navbar from "./components/Navbar/Navbar";
 import RegisterUser from "./components/Users/RegisterUser";
+import LoginUser from "./components/Users/LoginUser";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <BrowserRouter>
                 <Navbar/>
                 <Switch>
+                    <Route exact path='/login' component={LoginUser}></Route>
                     <Route exact path='/books' component={Books}></Route>
                     <Route exact path='/addbook' component={AddBook}></Route>
                     <Route exact path='/register' component={RegisterUser}></Route>
