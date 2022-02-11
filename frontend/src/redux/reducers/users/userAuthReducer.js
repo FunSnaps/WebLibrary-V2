@@ -10,6 +10,7 @@ import {
 
 const userReducer = (state = {}, action) => {
     switch (action.type) {
+        //Register
         case USER_REGISTER_REQUEST:
             return {
                 loading: true,
@@ -18,7 +19,6 @@ const userReducer = (state = {}, action) => {
             return {
                 userInfo: action.payload,
             };
-
         case USER_REGISTER_FAIL:
             return {
                 error: action.payload,
@@ -46,4 +46,4 @@ const userReducer = (state = {}, action) => {
     }
 };
 
-export {userReducer};
+export { userReducer };

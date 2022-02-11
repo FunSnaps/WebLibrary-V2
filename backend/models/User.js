@@ -19,6 +19,14 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
+//Books that user created
+UserSchema.virtual('books',{
+    ref: 'Book',
+    foreignField: 'addedBy',
+    localField: '_id',
+});
+UserSchema.set('toJSON', { virtuals: true})
+
 //Password hashing
 UserSchema.pre('save', async function (next){
     const salt = await bcrypt.genSalt(10);

@@ -35,37 +35,37 @@ const RegisterUser = ({ history }) => {
                     <form onSubmit={formSubmitHandler}>
                         <fieldset>
                             <div className='form-group'>
-                                <label htmlFor='exampleInputEmail1'>Name</label>
+                                <label htmlFor='exampleInputName'>Name</label>
                                 <input
                                     value={name}
                                     onChange={e => setName(e.target.value)}
                                     type='text'
                                     className='form-control'
-                                    id='exampleInputEmail1'
-                                    aria-describedby='emailHelp'
+                                    id='exampleInputName'
+                                    aria-describedby='nameHelp'
                                     placeholder='Enter Name'
                                 />
                             </div>
                             <div className='form-group'>
-                                <label htmlFor='exampleInputEmail1'>Email address</label>
+                                <label htmlFor='exampleInputEmail'>Email address</label>
                                 <input
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
                                     type='email'
                                     className='form-control'
-                                    id='exampleInputEmail1'
+                                    id='exampleInputEmail'
                                     aria-describedby='emailHelp'
                                     placeholder='Enter email'
                                 />
                             </div>
                             <div className='form-group'>
-                                <label htmlFor='exampleInputPassword1'>Password</label>
+                                <label htmlFor='exampleInputPassword'>Password</label>
                                 <input
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                     type='password'
                                     className='form-control'
-                                    id='exampleInputPassword1'
+                                    id='exampleInputPassword'
                                     placeholder='Password'
                                 />
                             </div>

@@ -6,8 +6,15 @@ const express = require("express");
 const bookRouter = express.Router();
 
 //Create book
-bookRouter.route('/').post(expressAsyncHandler(async (req, res) => {
-        const book = await Book.create(req.body);
+bookRouter.route('/').post(authMiddleware, expressAsyncHandler(async (req, res) => {
+        const userId = req.user._id;
+        const book = await Book.create({
+            title: req.body.title,
+            author: req.body.author,
+            category: req.body.category,
+            addedBy: userId,
+        });
+
         if (book) {
             res.status(200);
             res.json(book)
