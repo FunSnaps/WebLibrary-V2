@@ -1,62 +1,119 @@
-import React, { useEffect } from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getUserProfileAction} from "../../redux/actions/users/usersActions";
-import pic from '../../assets/img/profile.png';
+import React, {useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import './Profile.css';
-import { Link } from 'react-router-dom';
+import pic from '../../assets/img/profile.png';
+import {useSelector, useDispatch} from 'react-redux';
+import {getUserProfileAction} from '../../redux/actions/users/usersActions';
+import Loading from '../Loading/Loading';
+import {deleteBookAction} from "../../redux/actions/books/bookActions";
 
 
-const Profile = () => {
+const Profile = ({history}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getUserProfileAction());
-    },[dispatch]);
+    }, [dispatch, history]);
 
+    //Check if user is login otherwise redirect
+    const userLogin = useSelector(state => state.userLogin);
+    const {userInfo} = userLogin;
+
+    useEffect(() => {
+        if (userInfo === null) history.push('/profile');
+    }, [userInfo, history]);
+
+    //Get user Profile
     const userProfile = useSelector(state => state.userProfile);
-    const {error, loading, user} = userProfile;
+    const {loading, user} = userProfile;
+
+    const books = userProfile.user && userProfile.user.books;
+
+    //Delete book handler
+    const deleteBookHandler = id => {
+        dispatch(deleteBookAction(id));
+        module.history.push('/books');
+    };
+
+    const renderTable = () => {
+        if (books) {
+            return (
+                <table className='table table-hover'>
+                    <thead>
+                    <tr>
+                        <th scope='col'>Author</th>
+                        <th scope='col'>Book Name</th>
+                        <th scope='col'>Delete</th>
+                        <th scope='col'>Update</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {books.map(book => {
+                        return (
+                            <tr className='table-dark' key={book._id}>
+                                <th scope='row'>{book.author}</th>
+                                <td>{book.title}</td>
+                                <td>
+                                    <i
+                                        onClick={() => deleteBookHandler(book._id)}
+                                        className='fas fa-trash '
+                                        style={{color: 'red', cursor: 'pointer'}}>
+
+                                    </i>
+                                </td>
+                                <td>
+                                    <Link to={`/book/${book && book._id}`}>
+                                        <i
+                                            className='far fa-edit'
+                                            style={{
+                                                color: 'yellow',
+                                                cursor: 'pointer',
+                                            }}>
+
+                                        </i>
+                                    </Link>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                    </tbody>
+                </table>
+            );
+        } else {
+            return (
+                <>
+                    <h1>You don't have any book/s created.</h1>
+                    <Link>Start Creating</Link>
+                </>
+            );
+        }
+    };
+
     return (
-        <>
-            {error && <h2>{error}</h2>}
-            {loading? <h3>Loading profile please wait..</h3> : <div className='container'>
-                <div className='row'>
-                    <div className='col mt-5'>
-                        <div className='card m-auto ' style={{ width: '50%' }}>
-                            <img src={pic} className='card-img-top' alt='...' />
+        <div className='container'>
+            <div className='row'>
+                <div className='col mt-5'>
+                    {loading && !user ? (
+                        <Loading/>
+                    ) : (
+                        <div className='card m-auto ' style={{width: '50%'}}>
+                            <img src={pic} className='card-img-top' alt='...'/>
                             <div className='card-body'>
-                                <h5 className='card-title'>{user?.email}</h5>
-                                <p className='card-text'>{user?.name}</p>
+                                <h5 className='card-title'>{user && user.name}</h5>
+                                <p className='card-text'>{user && user.email}</p>
                                 <Link to='/user-update' className='btn btn-primary'>
                                     Update your profile
                                 </Link>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
-            </div>}
+            </div>
 
-            {/* Table */}
-            {loading? <h3>Loading tables please wait..</h3> : <table className='table table-hover'>
-                <thead>
-                <tr>
-                    <th scope='col'>Author</th>
-                    <th scope='col'>Book Name</th>
-                    <th scope='col'>Delete</th>
-                    <th scope='col'>Update</th>
-                </tr>
-                </thead>
-                <tbody>
-                {user?.books.map(book => (
-                    <tr className='table-dark'>
-                        <th scope='row'>{book.title}</th>
-                        <td>{book.author}</td>
-                        <td>Delete</td>
-                        <td>Update</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>}
-        </>
+            <div className='row'>
+                <div className='col'>{renderTable()}</div>
+            </div>
+        </div>
     );
 };
 

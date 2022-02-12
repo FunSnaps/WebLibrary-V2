@@ -1,26 +1,28 @@
-import {CREATE_BOOK_FAIL, CREATE_BOOK_REQUEST, CREATE_BOOK_SUCCESS,} from '../../actions/actionTypes';
+import {
+    BOOK_DETAIL_FAIL,
+    BOOK_DETAIL_REQUEST,
+    BOOK_DETAIL_SUCCESS,
+} from '../../actions/actionTypes';
 
-const createBookReducer = (state = {}, action) => {
+const bookDetailsReducer = (state = {}, action) => {
     switch (action.type) {
-        case CREATE_BOOK_REQUEST:
+        case BOOK_DETAIL_REQUEST:
             return {
                 loading: true,
             };
-        case CREATE_BOOK_SUCCESS:
+        case BOOK_DETAIL_SUCCESS:
             return {
                 book: action.payload,
                 loading: false,
             };
-
-        case CREATE_BOOK_FAIL:
+        case BOOK_DETAIL_FAIL:
             return {
                 loading: false,
                 error: action.payload,
             };
-
         default:
             return state;
     }
 };
 
-export {createBookReducer};
+export default bookDetailsReducer;

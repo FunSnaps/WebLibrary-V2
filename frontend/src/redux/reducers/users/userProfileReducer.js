@@ -1,4 +1,8 @@
-import {USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS} from "../../actions/actionTypes";
+import {
+    USER_PROFILE_FAIL,
+    USER_PROFILE_REQUEST,
+    USER_PROFILE_SUCCESS
+} from "../../actions/actionTypes";
 
 const userProfileReducer = (state = {}, action) => {
     switch (action.type) {
@@ -8,6 +12,7 @@ const userProfileReducer = (state = {}, action) => {
             };
         case USER_PROFILE_SUCCESS:
             return {
+                loading: false,
                 user: action.payload,
             };
         case USER_PROFILE_FAIL:

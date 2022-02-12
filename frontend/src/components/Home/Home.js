@@ -14,10 +14,10 @@ const Home = () => {
                 <div className='SubContent'>
                     <h1>Book Online</h1>
                     <p>Manage and request books with ease</p>
+                    <img src={profile} alt='profile' />
                     <button type='button' className='btn btn-outline-dark'>
                         <Link to='/register'>Let's go!</Link>
                     </button>
-                    <img src={profile} alt='profile' />
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUserAction} from '../../redux/actions/users/usersActions';
 import ErrorMessage from "../ErrorMessage";
+import Loading from "../Loading/Loading";
 
 const LoginUser = ({history}) => {
     const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ const LoginUser = ({history}) => {
             <div className='col-lg-6 col-md-6 m-auto'>
                 <div className='container'>
                     <h1 className='text-center'>Login</h1>
-                    {loading && <h1>Loading......</h1>}
+                    {loading && <Loading />}
                     {error && <ErrorMessage>{error}</ErrorMessage>}
                     <form onSubmit={loginUserSubmitHandler}>
                         <fieldset>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserAction } from '../../redux/actions/users/usersActions';
+import Loading from "../Loading/Loading";
+import ErrorMessage from "../DisplayMessage/ErrorMessage";
 
 const RegisterUser = ({ history }) => {
     const [name, setName] = useState('');
@@ -12,12 +14,12 @@ const RegisterUser = ({ history }) => {
     //Grab user login from store
     const userLogin = useSelector(state => state.userLogin);
 
-    const { userInfo } = userLogin;
+    const { userInfo, loading, error } = userLogin;
 
     //Redirect if user is logged-in/authenticated
     useEffect(() => {
         if (userInfo) {
-            history.push('/dashboard');
+            history.push('/profile');
         }
     }, [userInfo]);
 
@@ -25,47 +27,49 @@ const RegisterUser = ({ history }) => {
         e.preventDefault();
         //Dispatch action here
         dispatch(registerUserAction(name, email, password));
+        if (userInfo !== null && error === undefined) history.push('/');
     };
     return (
         <div className='row container-height'>
             <div className='col-lg-6 col-md-6 m-auto'>
                 <div className='container'>
+                    {loading && <Loading />}
+                    {error && <ErrorMessage error={error} />}
                     <h1 className='text-center'>Register</h1>
-
                     <form onSubmit={formSubmitHandler}>
                         <fieldset>
                             <div className='form-group'>
-                                <label htmlFor='exampleInputName'>Name</label>
+                                <label htmlFor='exampleInputEmail1'>Name</label>
                                 <input
                                     value={name}
                                     onChange={e => setName(e.target.value)}
                                     type='text'
                                     className='form-control'
-                                    id='exampleInputName'
+                                    id='exampleInputName1'
                                     aria-describedby='nameHelp'
                                     placeholder='Enter Name'
                                 />
                             </div>
                             <div className='form-group'>
-                                <label htmlFor='exampleInputEmail'>Email address</label>
+                                <label htmlFor='exampleInputEmail1'>Email address</label>
                                 <input
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
                                     type='email'
                                     className='form-control'
-                                    id='exampleInputEmail'
+                                    id='exampleInputEmail1'
                                     aria-describedby='emailHelp'
                                     placeholder='Enter email'
                                 />
                             </div>
                             <div className='form-group'>
-                                <label htmlFor='exampleInputPassword'>Password</label>
+                                <label htmlFor='exampleInputPassword1'>Password</label>
                                 <input
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                     type='password'
                                     className='form-control'
-                                    id='exampleInputPassword'
+                                    id='exampleInputPassword1'
                                     placeholder='Password'
                                 />
                             </div>

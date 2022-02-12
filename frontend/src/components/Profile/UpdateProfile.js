@@ -25,6 +25,7 @@ const UpdateProfile = () => {
     dispatch(updateUserAction(name, email, password));
   };
 
+
   return (
       <div className='row container-height'>
         <div className='col-lg-6 col-md-6 m-auto'>
@@ -50,7 +51,7 @@ const UpdateProfile = () => {
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Email address</label>
                   <input
-                      /*value={password}*/
+                      value={email}
                       onChange={e => setEmail(e.target.value)}
                       type='email'
                       className='form-control'

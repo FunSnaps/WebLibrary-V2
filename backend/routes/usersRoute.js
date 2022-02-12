@@ -15,16 +15,79 @@ usersRoute.route('/register').post(asyncHandler(async (req, res) => {
         throw new Error('The email provided is already tied to an account!');
     }
     const userCreated = await User.create({name, email, password});
-    res.json({
-        _id: userCreated._id,
-        name: userCreated.name,
-        password: userCreated.password,
-        email: userCreated.email,
-        token: tokenGenerator(userCreated._id),
-    });
+    if (userCreated) {
+        res.json({
+            _id: userCreated._id,
+            name: userCreated.name,
+            password: userCreated.password,
+            email: userCreated.email,
+            token: tokenGenerator(userCreated._id),
+        });
+    }
 }));
 
-//Update user
+//Login user
+usersRoute.route('/login').post(asyncHandler(async (req, res) => {
+    const {email, password} = req.body;
+
+    const user = await User.findOne({email});
+
+    if (user && (await user.doesPasswordMatch(password))) {
+        res.status(200);
+        res.status(201);
+        res.json({
+            _id: user._id,
+            name: user.name,
+            password: user.password,
+            email: user.email,
+            token: tokenGenerator(user._id),
+        });
+    } else {
+        res.status(401);
+        throw new Error('Invalid login credentials!');
+    }
+}));
+
+//Delete user
+usersRoute.route('/:id').delete(expressAsyncHandler(async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        res.status(200);
+        res.send(user);
+    } catch (error) {
+        res.json(error);
+    }
+}));
+
+//Fetch users
+usersRoute.route('/').get(authMiddleware, expressAsyncHandler(async (req, res) => {
+    const users = await User.find().populate('books');
+
+    if (users) {
+        res.status(200).json(users);
+    } else {
+        res.status(500);
+
+        throw new Error('No users found!');
+    }
+}));
+
+//ProfileRoute
+usersRoute.route('/profile').get(authMiddleware, asyncHandler(async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('books');
+        res.status(404);
+        if (!user) throw new Error("You dont have an existing profile!")
+
+        res.status(200)
+        res.send(user);
+    } catch (error) {
+        res.status(500)
+        throw new Error('Server Error!');
+    }
+}))
+
+//Update profile
 usersRoute.route('/profile/update').put(authMiddleware, expressAsyncHandler(async (req, res) => {
         const user = await User.findById(req.user.id);
         if (user) {
@@ -45,68 +108,6 @@ usersRoute.route('/profile/update').put(authMiddleware, expressAsyncHandler(asyn
                 token: tokenGenerator(updatedUser._id),
             });
         }
-    })
-);
-
-//Delete user
-usersRoute.route('/:id').delete(expressAsyncHandler(async (req, res) => {
-    try {
-        const user = await User.findByIdAndDelete(req.params.id);
-        res.status(200);
-        res.send(user);
-    } catch (error) {
-        res.json(error);
-    }
-}));
-
-//Fetch user
-usersRoute.route('/').get(authMiddleware, expressAsyncHandler(async (req, res) => {
-    const users = await User.find({});
-
-    if (users) {
-        res.status(200).json(users);
-    } else {
-        res.status(500);
-
-        throw new Error('No users found!');
-    }
-}));
-
-//Login user
-usersRoute.route('/login').post(asyncHandler(async (req, res) => {
-    const {email, password} = req.body;
-
-    const user = await User.findOne({email});
-
-    if (user && (await user.doesPasswordMatch(password))) {
-        res.status(200);
-
-        res.json({
-            _id: user._id,
-            name: user.name,
-            password: user.password,
-            email: user.email,
-            token: tokenGenerator(user._id),
-        });
-    } else {
-        res.status(401);
-        throw new Error('Invalid credentials!');
-    }
-}));
-
-//ProfileRoute
-usersRoute.route('/profile').get(authMiddleware, asyncHandler(async (req, res) => {
-    try {
-        const user = await User.findById(req.user._id).populate('books');
-
-        if (!user) throw new Error("You dont have an existing profile!")
-
-        res.status(200)
-        res.send(user);
-    } catch (error) {
-        res.status(500)
-        throw new Error('Server Error!');
-    }
-}))
+    }));
 
 module.exports = usersRoute;

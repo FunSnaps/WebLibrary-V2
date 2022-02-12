@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createBookAction} from '../../redux/actions/books/bookActions';
 
 const AddBook = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [category, setCategory] = useState('');
+
+    const userLogin = useSelector(state => state.userLogin);
+
+    const { userInfo } = userLogin;
 
     //dispatch
     const dispatch = useDispatch();
@@ -19,7 +23,9 @@ const AddBook = () => {
             title,
             author,
             category,
+            addedBy: userInfo && userInfo._id,
         };
+        e.preventDefault();
         dispatch(createBookAction(data));
     };
     return (
@@ -66,7 +72,7 @@ const AddBook = () => {
                                                     <option defaultValue='Programming'>Programming</option>
                                                     <option value='Fiction'>Fiction</option>
                                                     <option value='Non-Fiction'>Non-Fiction</option>
-                                                    <option value='History'>History</option>
+                                                    <option value='Conspiracy'>Conspiracy</option>
                                                 </select>
                                             </div>
                                             <div className='form-group'>
