@@ -9,8 +9,7 @@ const BookDetail = ({history}) => {
 
     //Get the book details and fill it in the form
     const bookDetails = useSelector(state => state.bookDetails);
-
-    const {book, loading} = bookDetails;
+    const {book, loading, success} = bookDetails;
 
     const [category, setCategory] = useState(book && !loading && book.category);
     const [title, setTitle] = useState(book && !loading && book.title);
