@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {fetchUserAction} from "../../redux/actions/users/usersActions";
 import Loading from '../Loading/Loading';
 
@@ -8,20 +8,21 @@ const Users = () => {
     useEffect(() => {
         dispatch(fetchUserAction());
     }, [dispatch]);
+
     const usersList = useSelector(state => state.usersList);
-    const { loading, users, error } = usersList;
+    const {loading, users, error} = usersList;
 
     console.log(users, loading, error);
     return (
         <div className='container-fluid'>
             <h1 className='text-center m-5'>List of users {users && users.length}</h1>
-            <hr className='text-white' />
+            <hr className='text-white'/>
             <div className='row text-center justify-content-center'>
                 {loading ? (
-                    <Loading />
+                    <Loading/>
                 ) : (
                     <>
-                        {users &&
+                        {users && (
                         users.map(user => (
                             <div className='col-lg-3' key={user._id}>
                                 <div className='card'>
@@ -32,7 +33,7 @@ const Users = () => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        ))) }
                     </>
                 )}
             </div>

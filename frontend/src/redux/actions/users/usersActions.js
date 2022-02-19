@@ -19,7 +19,7 @@ import {
 
 } from '../actionTypes';
 
-const registerUserAction = (name, email, password) => {
+const registerUserAction = (name, email, password, role) => {
     return async dispatch => {
         try {
             dispatch({
@@ -39,6 +39,7 @@ const registerUserAction = (name, email, password) => {
                     name,
                     email,
                     password,
+                    role,
                 },
                 config
             );

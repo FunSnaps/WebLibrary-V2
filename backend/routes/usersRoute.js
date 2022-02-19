@@ -8,19 +8,20 @@ const usersRoute = express.Router();
 
 //Create user
 usersRoute.route('/register').post(asyncHandler(async (req, res) => {
-    const {name, email, password} = req?.body;
+    const {name, email, password, role} = req?.body;
 
     const existingUser = await User.findOne({email: email});
     if (existingUser) {
         throw new Error('The email provided is already tied to an account!');
     }
-    const userCreated = await User.create({name, email, password});
+    const userCreated = await User.create({name, email, password, role});
     if (userCreated) {
         res.json({
             _id: userCreated._id,
             name: userCreated.name,
             password: userCreated.password,
             email: userCreated.email,
+            role:  userCreated.role,
             token: tokenGenerator(userCreated._id),
         });
     }

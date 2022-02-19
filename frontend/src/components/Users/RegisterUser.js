@@ -13,7 +13,6 @@ const RegisterUser = ({ history }) => {
 
     //Grab user login from store
     const userLogin = useSelector(state => state.userLogin);
-
     const { userInfo, loading, error } = userLogin;
 
     //Redirect if user is logged-in/authenticated
@@ -26,7 +25,7 @@ const RegisterUser = ({ history }) => {
     const formSubmitHandler = e => {
         e.preventDefault();
         //Dispatch action here
-        dispatch(registerUserAction(name, email, password));
+        dispatch(registerUserAction(name, email, password, 'user'));
         if (userInfo !== null && error === undefined) history.push('/');
     };
     return (

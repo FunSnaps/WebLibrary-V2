@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logoutUserAction } from '../../redux/actions/users/usersActions';
+import {Link, useHistory} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import {logoutUserAction} from '../../redux/actions/users/usersActions';
 
 const Navbar = () => {
     const state = useSelector(state => state.userLogin);
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const { userInfo } = state;
+    const {userInfo} = state;
+
+    const userProfile = useSelector(state => state.userProfile);
+    const {user} = userProfile;
 
     const logoutHandler = () => {
         dispatch(logoutUserAction());
@@ -74,52 +77,52 @@ const Navbar = () => {
                                                 <li className='list-group-item active'>
                                                     <i
                                                         className='fas fa-clipboard-list text-white mr-3'
-                                                        style={{ fontSize: '1.5rem' }}></i>
+                                                        style={{fontSize: '1.5rem'}}></i>
                                                     Register User
-                                                    <hr />
+                                                    <hr/>
                                                 </li>
                                                 <li className='list-group-item'>
                                                     <i
                                                         className='fas fa-clipboard-list text-white mr-3'
-                                                        style={{ fontSize: '1.5rem' }}></i>
+                                                        style={{fontSize: '1.5rem'}}></i>
                                                     Update Profile
-                                                    <hr />
+                                                    <hr/>
                                                 </li>
 
                                                 <li className='list-group-item'>
                                                     <i
                                                         className='fas fa-clipboard-list text-white mr-3'
-                                                        style={{ fontSize: '1.5rem' }}></i>
+                                                        style={{fontSize: '1.5rem'}}></i>
                                                     Login
-                                                    <hr />
+                                                    <hr/>
                                                 </li>
                                                 <li className='list-group-item'>
                                                     <i
                                                         className='fas fa-clipboard-list text-white mr-3'
-                                                        style={{ fontSize: '1.5rem' }}></i>
+                                                        style={{fontSize: '1.5rem'}}></i>
                                                     User Dashboard
-                                                    <hr />
+                                                    <hr/>
                                                 </li>
                                                 <li className='list-group-item'>
                                                     <i
                                                         className='fas fa-clipboard-list text-white mr-3'
-                                                        style={{ fontSize: '1.5rem' }}></i>
+                                                        style={{fontSize: '1.5rem'}}></i>
                                                     List of Users
-                                                    <hr />
+                                                    <hr/>
                                                 </li>
                                                 <li className='list-group-item'>
                                                     <i
                                                         className='fas fa-clipboard-list text-white mr-3'
-                                                        style={{ fontSize: '1.5rem' }}></i>
+                                                        style={{fontSize: '1.5rem'}}></i>
                                                     List of Books
-                                                    <hr />
+                                                    <hr/>
                                                 </li>
                                                 <li className='list-group-item'>
                                                     <i
                                                         className='fas fa-clipboard-list text-white mr-3'
-                                                        style={{ fontSize: '1.5rem' }}></i>
+                                                        style={{fontSize: '1.5rem'}}></i>
                                                     Many more
-                                                    <hr />
+                                                    <hr/>
                                                 </li>
                                             </ul>
                                         </div>
@@ -154,12 +157,14 @@ const Navbar = () => {
                                         Add book
                                     </Link>
                                 </li>
-
-                                <li className='nav-item'>
-                                    <Link className='nav-link' to='/users'>
-                                        Users
-                                    </Link>
-                                </li>
+                                {user?.role === 'admin' ? (
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/users'>
+                                            Users
+                                        </Link>
+                                    </li>
+                                ) : []
+                                }
                                 <li className='nav-item'>
                                     <Link
                                         className='nav-link'
