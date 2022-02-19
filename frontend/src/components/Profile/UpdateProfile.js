@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {updateUserAction} from "../../redux/actions/users/usersActions";
 import SuccessMessage from '../DisplayMessage/SuccessMessage';
 
-const UpdateProfile = () => {
+const UpdateProfile = ({history}) => {
 
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;

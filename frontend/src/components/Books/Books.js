@@ -13,12 +13,12 @@ const Books = ({history}) => {
 
     //Taking data from store
     const booksList = useSelector(state => state.booksList);
-    const { books, loading } = booksList;
+    const { books, loading, success } = booksList;
 
     //Delete book handler
     const deleteBookHandler = id => {
         dispatch(deleteBookAction(id));
-        module.history.push('/books');
+        history.push('/profile');
     };
 
     return (

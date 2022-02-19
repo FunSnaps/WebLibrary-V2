@@ -1,6 +1,7 @@
 import {FETCH_BOOK_FAIL, FETCH_BOOK_REQUEST, FETCH_BOOK_SUCCESS,} from '../../actions/actionTypes';
 
 const bookListReducer = (state = [], action) => {
+    console.log(state);
     switch (action.type) {
         case FETCH_BOOK_REQUEST:
             return {

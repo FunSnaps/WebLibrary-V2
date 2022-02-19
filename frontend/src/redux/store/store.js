@@ -33,7 +33,7 @@ const initialState = {
 const store = createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(...middlewares))
+    composeWithDevTools(applyMiddleware(...middlewares)),
 );
 
 export {store};

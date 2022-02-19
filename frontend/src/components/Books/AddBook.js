@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {createBookAction} from '../../redux/actions/books/bookActions';
 
-const AddBook = () => {
+const AddBook = ({history}) => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [category, setCategory] = useState('');
@@ -27,21 +27,22 @@ const AddBook = () => {
         };
         e.preventDefault();
         dispatch(createBookAction(data));
+        history.push('/books')
     };
     return (
         <div className='row container-height'>
             <div className='col-lg-6 col-md-6 m-auto'>
                 <div className='container'>
-                    <button
+                   {/* <button
                         type='button'
                         className='btn btn-primary'
                         data-toggle='modal'
                         data-target='#exampleModal'>
                         Add book
-                    </button>
+                    </button>*/}
 
                     <div
-                        className='modal fade'
+                       /* className='modal fade'*/
                         id='exampleModal'
                         tabIndex='-1'
                         aria-labelledby='exampleModalLabel'
@@ -52,13 +53,13 @@ const AddBook = () => {
                                     <h5 className='modal-title' id='exampleModalLabel'>
                                         Create Book
                                     </h5>
-                                    <button
+                                   {/* <button
                                         type='button'
                                         className='close'
                                         data-dismiss='modal'
                                         aria-label='Close'>
                                         <span aria-hidden='true'>&times;</span>
-                                    </button>
+                                    </button>*/}
                                 </div>
                                 <div className='modal-body'>
                                     <h1 className='text-center'>Add Book</h1>
@@ -98,20 +99,23 @@ const AddBook = () => {
                                                     placeholder='Book title'
                                                 />
                                             </div>
+
+                                            <br/>
+
                                             <button type='submit' className='btn btn-warning m-auto'>
                                                 Create Book
                                             </button>
                                         </fieldset>
                                     </form>
                                 </div>
-                                <div className='modal-footer'>
+                                {/*<div className='modal-footer'>
                                     <button
                                         type='button'
                                         className='btn btn-danger'
                                         data-dismiss='modal'>
                                         Close
                                     </button>
-                                </div>
+                                </div>*/}
                             </div>
                         </div>
                     </div>

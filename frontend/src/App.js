@@ -8,7 +8,7 @@ import LoginUser from "./components/Users/LoginUser";
 import Profile from "./components/Profile/Profile";
 import Home from "./components/Home/Home";
 import UpdateProfile from "./components/Profile/UpdateProfile";
-import BookDetail from "./components/Books/BookDetails";
+import BookDetail from "./components/Books/BookUpdate";
 import Users from "./components/Users/Users";
 
 function App() {

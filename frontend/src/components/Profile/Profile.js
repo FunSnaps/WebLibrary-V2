@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import './Profile.css';
 import pic from '../../assets/img/profile.png';
@@ -6,7 +6,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getUserProfileAction} from '../../redux/actions/users/usersActions';
 import Loading from '../Loading/Loading';
 import {deleteBookAction} from "../../redux/actions/books/bookActions";
-
 
 const Profile = ({history}) => {
     const dispatch = useDispatch();
@@ -28,11 +27,12 @@ const Profile = ({history}) => {
     const {loading, user} = userProfile;
 
     const books = userProfile.user && userProfile.user.books;
+    /*const [books, setBooks] = useState(userProfile.user && userProfile.user.books);*/
 
     //Delete book handler
     const deleteBookHandler = id => {
         dispatch(deleteBookAction(id));
-        module.history.push('/books');
+        history.push('/books');
     };
 
     const renderTable = () => {

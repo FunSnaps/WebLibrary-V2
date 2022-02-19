@@ -13,10 +13,12 @@ const userReducer = (state = {}, action) => {
         //Register
         case USER_REGISTER_REQUEST:
             return {
+                ...state,
                 loading: true,
             };
         case USER_REGISTER_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 userInfo: action.payload,
             };

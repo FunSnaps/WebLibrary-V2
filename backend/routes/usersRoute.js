@@ -60,7 +60,7 @@ usersRoute.route('/:id').delete(expressAsyncHandler(async (req, res) => {
 }));
 
 //Fetch users
-usersRoute.route('/').get(authMiddleware, expressAsyncHandler(async (req, res) => {
+usersRoute.route('/').get(expressAsyncHandler(async (req, res) => {
     const users = await User.find().populate('books');
 
     if (users) {
