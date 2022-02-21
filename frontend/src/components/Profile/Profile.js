@@ -27,7 +27,6 @@ const Profile = ({history}) => {
     const {loading, user} = userProfile;
 
     const books = userProfile.user && userProfile.user.books;
-    /*const [books, setBooks] = useState(userProfile.user && userProfile.user.books);*/
 
     //Delete book handler
     const deleteBookHandler = id => {

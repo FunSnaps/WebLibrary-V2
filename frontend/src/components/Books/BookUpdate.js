@@ -30,7 +30,7 @@ const BookDetail = ({history}) => {
         };
         e.preventDefault();
         dispatch(updateBookAction(id, data));
-        history.push('/books');
+        history.push('/profile');
     };
     return (
         <div className='row container-height'>
@@ -75,6 +75,7 @@ const BookDetail = ({history}) => {
                                             placeholder='Book title'
                                         />
                                     </div>
+                                    <br/>
                                     <button type='submit' className='btn btn-dark m-auto'>
                                         Update book
                                     </button>

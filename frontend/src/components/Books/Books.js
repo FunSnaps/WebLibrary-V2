@@ -15,6 +15,10 @@ const Books = ({history}) => {
     const booksList = useSelector(state => state.booksList);
     const { books, loading, success } = booksList;
 
+    const userProfile = useSelector(state => state.userProfile);
+    const {user} = userProfile;
+    const book = userProfile.user && userProfile.user.books;
+
     //Delete book handler
     const deleteBookHandler = id => {
         dispatch(deleteBookAction(id));
