@@ -29,6 +29,7 @@ UserSchema.virtual('books', {
     foreignField: 'addedBy',
     localField: '_id',
 });
+
 UserSchema.set('toJSON', {virtuals: true})
 
 //Password hashing

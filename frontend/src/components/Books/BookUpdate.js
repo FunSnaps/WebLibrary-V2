@@ -7,19 +7,19 @@ import Loading from "../Loading/Loading";
 const BookDetail = ({history}) => {
     const {id} = useParams();
 
-    //Get the book details and fill it in the form
-    const bookDetails = useSelector(state => state.bookDetails);
-    const {book, loading, success} = bookDetails;
-
-    const [category, setCategory] = useState(book && !loading && book.category);
-    const [title, setTitle] = useState(book && !loading && book.title);
-    const [author, setAuthor] = useState(book && book.author);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchBookAction(id));
     }, [dispatch, id]);
+
+    //Get the book details and fill it in the form
+    const bookDetails = useSelector(state => state.bookDetails);
+    const {book, loading} = bookDetails;
+
+    const [category, setCategory] = useState(book && !loading && book.category);
+    const [title, setTitle] = useState(book && !loading && book.title);
+    const [author, setAuthor] = useState(book && book.author);
 
     //dispatch action
     const formSubmitHandler = e => {

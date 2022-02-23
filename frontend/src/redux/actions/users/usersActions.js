@@ -16,9 +16,13 @@ import {
     FETCH_USERS_REQUEST,
     FETCH_USERS_SUCCESS,
     FETCH_USERS_FAIL,
+    USER_DELETE_REQUEST,
+    USER_DELETE_SUCCESS,
+    USER_DELETE_FAIL, A_USER_UPDATE_REQUEST, A_USER_UPDATE_SUCCESS, A_USER_UPDATE_FAIL,
 
 } from '../actionTypes';
 
+//Register action
 const registerUserAction = (name, email, password, role) => {
     return async dispatch => {
         try {
@@ -61,7 +65,6 @@ const registerUserAction = (name, email, password, role) => {
 };
 
 //Login action
-
 const loginUserAction = (email, password) => {
     return async dispatch => {
         try {
@@ -135,6 +138,7 @@ const getUserProfileAction = () => {
     };
 };
 
+//Update action
 const updateUserAction = (name, email, password) => {
     return async (dispatch, getState) => {
         try {
@@ -172,6 +176,68 @@ const updateUserAction = (name, email, password) => {
     };
 };
 
+const updateAUserAction = (id, userData) => {
+    return async dispatch => {
+        try {
+            dispatch({
+                type: A_USER_UPDATE_REQUEST,
+                loading: true,
+            });
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            console.log(id, userData);
+            const {data} = await axios.put(`/api/users/${id}`, userData, config);
+
+            dispatch({
+                type: A_USER_UPDATE_SUCCESS,
+                payload: data,
+            });
+        } catch (error) {
+            dispatch({
+                type: A_USER_UPDATE_FAIL,
+                loading: false,
+                error: error.response && error.response.data.message,
+            });
+        }
+    };
+};
+
+//Delete user action
+const deleteUserAction = id => {
+    return async dispatch => {
+        try {
+            dispatch({
+                type: USER_DELETE_REQUEST,
+                loading: true,
+            });
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+            const {data} = await axios.delete(`/api/users/${id}`, config);
+            dispatch({
+                type: USER_DELETE_SUCCESS,
+                payload: data,
+            });
+
+        } catch (error) {
+            dispatch({
+                type: USER_DELETE_FAIL,
+                loading: false,
+                error: error.response && error.response.data.message,
+            });
+        }
+    };
+};
+
+//Fetch user action
 const fetchUserAction = () => {
     return async dispatch => {
         try {
@@ -185,6 +251,7 @@ const fetchUserAction = () => {
                 },
             };
             const { data } = await axios.get('/api/users', config);
+            console.log(data);
             dispatch({
                 type: FETCH_USERS_SUCCESS,
                 payload: data,
@@ -198,4 +265,4 @@ const fetchUserAction = () => {
     };
 };
 
-export {registerUserAction, loginUserAction, logoutUserAction, getUserProfileAction, updateUserAction, fetchUserAction};
+export {registerUserAction, loginUserAction, logoutUserAction, getUserProfileAction, updateUserAction, fetchUserAction, deleteUserAction, updateAUserAction};

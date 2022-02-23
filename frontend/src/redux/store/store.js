@@ -8,6 +8,7 @@ import {userProfileReducer} from "../reducers/users/userProfileReducer";
 import bookDetailsReducer from "../reducers/books/bookDetailsReducer";
 import userUpdateReducer from "../reducers/users/userUpdateReducer";
 import usersListReducer from "../reducers/users/userListReducer";
+import updateAUserReducer from "../reducers/users/updateAUserReducer";
 
 
 const middlewares = [thunk];
@@ -16,6 +17,7 @@ const reducer = combineReducers({
     userLogin: userReducer,
     userProfile: userProfileReducer,
     updatedUser: userUpdateReducer,
+    userDetails: updateAUserReducer,
     bookCreated: createBookReducer,
     booksList: bookListReducer,
     bookDetails: bookDetailsReducer,

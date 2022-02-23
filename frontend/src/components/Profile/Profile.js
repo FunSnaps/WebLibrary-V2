@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './Profile.css';
 import pic from '../../assets/img/profile.png';

@@ -147,11 +147,14 @@ const Navbar = () => {
 
                         {userInfo ? (
                             <>
-                                <li className='nav-item'>
-                                    <Link className='nav-link' to='/books'>
-                                        Books
-                                    </Link>
-                                </li>
+                                {user?.role === 'employee' || 'admin' ? (
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/books'>
+                                            Books
+                                        </Link>
+                                    </li>
+                                ) : []
+                                }
                                 <li className='nav-item'>
                                     <Link className='nav-link' to='/addbook'>
                                         Add book

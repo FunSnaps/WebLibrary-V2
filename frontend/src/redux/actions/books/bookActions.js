@@ -94,9 +94,6 @@ const deleteBookAction = id => {
                 payload: data,
             });
 
-            dispatch({
-                type: FETCH_BOOK_SUCCESS,
-            });
         } catch (error) {
             dispatch({
                 type: DELETE_BOOK_FAIL,

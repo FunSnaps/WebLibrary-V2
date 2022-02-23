@@ -4,6 +4,7 @@ const User = require("../models/User");
 const authMiddleware = require("../middlewares/authMiddleware");
 const tokenGenerator = require("../utils/tokenGenerator");
 const expressAsyncHandler = require("express-async-handler");
+const Book = require("../models/Book");
 const usersRoute = express.Router();
 
 //Create user
@@ -88,7 +89,19 @@ usersRoute.route('/profile').get(authMiddleware, asyncHandler(async (req, res) =
     }
 }))
 
-//Update profile
+//Update a user
+usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
+        res.status(200);
+        res.json(updatedUser);
+    } catch (error){
+        res.status(500);
+        throw new Error('Update failed');
+    }
+}));
+
+//Update own profile
 usersRoute.route('/profile/update').put(authMiddleware, expressAsyncHandler(async (req, res) => {
         const user = await User.findById(req.user.id);
         if (user) {

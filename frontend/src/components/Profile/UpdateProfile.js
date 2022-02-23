@@ -25,7 +25,6 @@ const UpdateProfile = ({history}) => {
     dispatch(updateUserAction(name, email, password));
   };
 
-
   return (
       <div className='row container-height'>
         <div className='col-lg-6 col-md-6 m-auto'>

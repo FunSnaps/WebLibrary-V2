@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
+import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchBooksAction, deleteBookAction} from '../../redux/actions/books/bookActions';
 import Loading from '../Loading/Loading';
-import {Link} from "react-router-dom";
 
 const Books = ({history}) => {
     const dispatch = useDispatch();
@@ -15,10 +15,6 @@ const Books = ({history}) => {
     const booksList = useSelector(state => state.booksList);
     const { books, loading, success } = booksList;
 
-    const userProfile = useSelector(state => state.userProfile);
-    const {user} = userProfile;
-    const book = userProfile.user && userProfile.user.books;
-
     //Delete book handler
     const deleteBookHandler = id => {
         dispatch(deleteBookAction(id));
@@ -29,7 +25,7 @@ const Books = ({history}) => {
         <div>
             {loading && <Loading />}
             {books !== undefined && books.length === 0 ? (
-                'No'
+                <h1>There are no books available right now!</h1>
             ) : (
                 <div className='row'>
                     <div className='col'>
@@ -38,6 +34,7 @@ const Books = ({history}) => {
                             <tr>
                                 <th scope='col'>Book Name</th>
                                 <th scope='col'>Author</th>
+                                {/*<th scope='col'>Requested by</th>*/}
                                 <th scope='col'>Delete</th>
                                 <th scope='col'>Edit</th>
                             </tr>
@@ -49,11 +46,14 @@ const Books = ({history}) => {
                                     <tr className='table-dark' key={book._id}>
                                         <th scope='row'>{book.title}</th>
                                         <td>{book.author}</td>
+                                       {/* <td>{}</td>*/}
                                         <td>
                                             <i
                                                 onClick={() => deleteBookHandler(book._id)}
                                                 className='fas fa-trash '
-                                                style={{ color: 'red', cursor: 'pointer' }}></i>
+                                                style={{ color: 'red', cursor: 'pointer' }}>
+
+                                            </i>
                                         </td>
                                         <td>
                                             <Link to={`/book/${book && book._id}`}>
