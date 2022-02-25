@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ErrorMessage = ({children}) => {
+const ErrorMessage = ({ error }) => {
     return (
-        <div style={{background: 'red', color: 'white', padding: '3px'}}>
-            {children}
+        <div class='alert alert-warning' role='alert'>
+            {error}
         </div>
     );
 };

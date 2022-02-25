@@ -18,7 +18,10 @@ import {
     FETCH_USERS_FAIL,
     USER_DELETE_REQUEST,
     USER_DELETE_SUCCESS,
-    USER_DELETE_FAIL, A_USER_UPDATE_REQUEST, A_USER_UPDATE_SUCCESS, A_USER_UPDATE_FAIL,
+    USER_DELETE_FAIL,
+    A_USER_UPDATE_REQUEST,
+    A_USER_UPDATE_SUCCESS,
+    A_USER_UPDATE_FAIL,
 
 } from '../actionTypes';
 
@@ -251,7 +254,7 @@ const fetchUserAction = () => {
                 },
             };
             const { data } = await axios.get('/api/users', config);
-            console.log(data);
+
             dispatch({
                 type: FETCH_USERS_SUCCESS,
                 payload: data,

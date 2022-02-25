@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUserAction} from '../../redux/actions/users/usersActions';
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from '../DisplayMessage/ErrorMessage';
 import Loading from "../Loading/Loading";
 
 const LoginUser = ({history}) => {
@@ -11,7 +11,6 @@ const LoginUser = ({history}) => {
     const dispatch = useDispatch();
 
     //Get needed data from store
-
     const state = useSelector(state => {
         return state.userLogin;
     });
@@ -33,9 +32,9 @@ const LoginUser = ({history}) => {
         <div className='row container-height'>
             <div className='col-lg-6 col-md-6 m-auto'>
                 <div className='container'>
+                    {error && <ErrorMessage message='Invalid login credentials!' />}
                     <h1 className='text-center'>Login</h1>
                     {loading && <Loading />}
-                    {error && <ErrorMessage>{error}</ErrorMessage>}
                     <form onSubmit={loginUserSubmitHandler}>
                         <fieldset>
                             <div className='form-group'>

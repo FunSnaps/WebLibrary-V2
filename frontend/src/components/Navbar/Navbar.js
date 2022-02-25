@@ -147,7 +147,15 @@ const Navbar = () => {
 
                         {userInfo ? (
                             <>
-                                {user?.role === 'employee' || 'admin' ? (
+                                {user?.role === 'admin' ? (
+                                    <li className='nav-item'>
+                                        <Link className='nav-link' to='/books'>
+                                            Books
+                                        </Link>
+                                    </li>
+                                ) : []
+                                }
+                                {user?.role === 'employee' ? (
                                     <li className='nav-item'>
                                         <Link className='nav-link' to='/books'>
                                             Books
@@ -207,12 +215,6 @@ const Navbar = () => {
                                 <div className='dropdown-menu'>
                                     <Link className='dropdown-item' to='/profile'>
                                         Profile
-                                    </Link>
-                                    <Link className='dropdown-item' to='/addbook'>
-                                        Add book
-                                    </Link>
-                                    <Link className='dropdown-item' to='/books'>
-                                        Books
                                     </Link>
 
                                     <div className='dropdown-divider'></div>

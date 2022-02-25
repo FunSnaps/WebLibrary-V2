@@ -3,10 +3,9 @@ const dotenv = require('dotenv');
 const error = require('./middlewares/errorMiddlewareHandler');
 const usersRoute = require('./routes/usersRoute');
 const booksRouter = require('./routes/booksRoute');
+dotenv.config();
 const dbConnect = require('./config/dbConnect');
 
-
-dotenv.config();
 const app = express();
 dbConnect();
 const PORT = process.env.PORT || 5000;
@@ -15,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 //Error middleware
-app.use(error.errorMiddlewareHandler);
+app.use(error?.errorMiddlewareHandler);
 
 //Routes
 app.use('/api/users', usersRoute);

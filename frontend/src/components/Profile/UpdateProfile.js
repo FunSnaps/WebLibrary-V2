@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {updateUserAction} from "../../redux/actions/users/usersActions";
 import SuccessMessage from '../DisplayMessage/SuccessMessage';
+import Loading from "../Loading/Loading";
 
 const UpdateProfile = ({history}) => {
 
@@ -32,6 +33,7 @@ const UpdateProfile = ({history}) => {
             {user && !loading && success && (
                 <SuccessMessage message='Updated successfully. Logout and login with your new credentials' />
             )}
+            {loading && <Loading />}
             <h1 className='text-center'>Update</h1>
             <form onSubmit={formSubmitHandler}>
               <fieldset>

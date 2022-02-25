@@ -4,7 +4,7 @@ import {
     FETCH_USERS_SUCCESS,
 } from '../../actions/actionTypes';
 
-const usersListReducer = (state = {}, action) => {
+const usersListReducer = (state = [], action) => {
     switch (action.type) {
         // Register
         case FETCH_USERS_REQUEST:

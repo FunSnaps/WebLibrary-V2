@@ -12,13 +12,15 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        validate: [(val)=>{},'Please Enter a valid email!']
     },
     password: {
         type: String,
-        required: true,
+        required: [true, 'Please enter a password'],
+        minlength: [4, 'The minimum length is 6 characters!']
     },
     role: {
-        type: String,
+        type: String, default: 'user',
         required: true,
     }
 });
