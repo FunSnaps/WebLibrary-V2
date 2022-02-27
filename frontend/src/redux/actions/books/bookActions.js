@@ -29,6 +29,7 @@ const createBookAction = bookData => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 }
             };
             const {data} = await axios.post('/api/books', bookData, config);
@@ -57,6 +58,7 @@ const fetchBooksAction = () => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
             //make http call to our backend
@@ -86,6 +88,7 @@ const deleteBookAction = id => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
             const {data} = await axios.delete(`/api/books/${id}`, config);
@@ -115,6 +118,7 @@ const fetchBookAction = (id, bookData) => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
             const {data} = await axios.get(`/api/books/${id}`, bookData, config);
@@ -144,6 +148,7 @@ const updateBookAction = (id, bookData) => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
 

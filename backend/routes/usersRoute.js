@@ -28,7 +28,7 @@ usersRoute.route('/register').post(expressAsyncHandler(async (req, res) => {
 
 //Login user
 usersRoute.route('/login').post(expressAsyncHandler(async (req, res) => {
-    const {email, password} = req.body;
+    const {email, password} = req?.body;
 
     const user = await User.findOne({email});
 
@@ -51,7 +51,7 @@ usersRoute.route('/login').post(expressAsyncHandler(async (req, res) => {
 //Delete user
 usersRoute.route('/:id').delete(expressAsyncHandler(async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.params.id);
+        const user = await User.findByIdAndDelete(req?.params.id);
         res?.status(200);
         res?.send(user);
     } catch (error) {
@@ -60,7 +60,7 @@ usersRoute.route('/:id').delete(expressAsyncHandler(async (req, res) => {
 }));
 
 //Fetch users
-usersRoute.route('/').get(authMiddleware, expressAsyncHandler(async (req, res) => {
+usersRoute.route('/').get(expressAsyncHandler(async (req, res) => {
     const users = await User.find().populate('books');
     try  {
         res?.status(200);
@@ -72,9 +72,9 @@ usersRoute.route('/').get(authMiddleware, expressAsyncHandler(async (req, res) =
 }));
 
 //Update a user
-usersRoute.route('/:id').put(authMiddleware, expressAsyncHandler(async (req, res) => {
+usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
+        const updatedUser = await User.findByIdAndUpdate(req?.params.id, req?.body);
         res?.status(200);
         res?.json(updatedUser);
     } catch (error){
@@ -84,9 +84,10 @@ usersRoute.route('/:id').put(authMiddleware, expressAsyncHandler(async (req, res
 }));
 
 //ProfileRoute
-usersRoute.route('/profile').get(authMiddleware, expressAsyncHandler(async (req, res) => {
+usersRoute.route('/profile').get(expressAsyncHandler(async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).populate('books');
+        console.log(req?.user);
+        const user = await User.findById(req?.user.id).populate('books');
         res?.status(404);
         if (!user) throw new Error("You dont have an existing profile!")
 
@@ -94,12 +95,13 @@ usersRoute.route('/profile').get(authMiddleware, expressAsyncHandler(async (req,
         res?.send(user);
     } catch (error) {
         res?.status(500)
+        console.log(error);
         throw new Error('Server Error!');
     }
 }));
 
 //Update own profile
-usersRoute.route('/profile/update').put(authMiddleware, expressAsyncHandler(async (req, res) => {
+usersRoute.route('/profile/update').put(expressAsyncHandler(async (req, res) => {
         const user = await User.findById(req.user.id);
         if (user) {
             user.name = req?.body.name || user.name;

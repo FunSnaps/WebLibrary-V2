@@ -13,7 +13,7 @@ const Books = ({history}) => {
 
     //Taking data from store
     const booksList = useSelector(state => state.booksList);
-    const { books, loading, success } = booksList;
+    const { books, loading } = booksList;
 
     //Delete book handler
     const deleteBookHandler = id => {

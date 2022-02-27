@@ -6,7 +6,7 @@ const bookRouter = express.Router();
 
 //Create book
 bookRouter.route('/').post(expressAsyncHandler(async (req, res) => {
-    const book = await Book.create(req.body);
+    const book = await Book.create(req?.body);
     if (book) {
         res?.status(200);
         res?.json(book)
@@ -31,7 +31,7 @@ bookRouter.route('/').get(expressAsyncHandler(async (req, res) => {
 //Update book
 bookRouter.route('/:id').put(expressAsyncHandler(async (req, res) => {
     try {
-        const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body);
+        const updatedBook = await Book.findByIdAndUpdate(req?.params.id, req?.body);
         res?.status(200);
         res?.json(updatedBook);
     } catch (error) {
@@ -43,7 +43,7 @@ bookRouter.route('/:id').put(expressAsyncHandler(async (req, res) => {
 //Delete book
 bookRouter.route('/:id').delete(expressAsyncHandler(async (req, res) => {
     try {
-        const book = await Book.findByIdAndDelete(req.params.id);
+        const book = await Book.findByIdAndDelete(req?.params.id);
         res?.status(200);
         res?.send(book);
     } catch (error) {

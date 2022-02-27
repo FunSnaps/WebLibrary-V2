@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const error = require('./middlewares/errorMiddlewareHandler');
+const auth = require('./middlewares/authMiddleware');
 const usersRoute = require('./routes/usersRoute');
 const booksRouter = require('./routes/booksRoute');
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 //Error middleware
 app.use(error?.errorMiddlewareHandler);
+app.use(auth?.authMiddleware);
 
 //Routes
 app.use('/api/users', usersRoute);

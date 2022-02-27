@@ -123,7 +123,7 @@ const getUserProfileAction = () => {
             });
             const config = {
                 headers: {
-                    authorization: `Bearer ${userInfo.token}`
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 }
             };
             const {data} = await axios.get('/api/users/profile', config);
@@ -136,7 +136,8 @@ const getUserProfileAction = () => {
                 type: USER_PROFILE_FAIL,
                 payload: error.response && error.response.data.message,
             });
-        };
+        }
+        ;
 
     };
 };
@@ -150,18 +151,18 @@ const updateUserAction = (name, email, password) => {
                 loading: true,
             });
             //Get the token of the user from store to pass onto our endpoint
-            const { userInfo } = getState().userLogin;
+            const {userInfo} = getState().userLogin;
             console.log(userInfo.token);
             //Create a config and pass to axios for authentication
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${userInfo.token}`,
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
-            const { data } = await axios.put(
+            const {data} = await axios.put(
                 '/api/users/profile/update',
-                { name, email, password },
+                {name, email, password},
                 config
             );
             dispatch({
@@ -190,6 +191,7 @@ const updateAUserAction = (id, userData) => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
 
@@ -222,6 +224,7 @@ const deleteUserAction = id => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
             const {data} = await axios.delete(`/api/users/${id}`, config);
@@ -251,9 +254,10 @@ const fetchUserAction = () => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
-            const { data } = await axios.get('/api/users', config);
+            const {data} = await axios.get('/api/users', config);
 
             dispatch({
                 type: FETCH_USERS_SUCCESS,
@@ -268,4 +272,13 @@ const fetchUserAction = () => {
     };
 };
 
-export {registerUserAction, loginUserAction, logoutUserAction, getUserProfileAction, updateUserAction, fetchUserAction, deleteUserAction, updateAUserAction};
+export {
+    registerUserAction,
+    loginUserAction,
+    logoutUserAction,
+    getUserProfileAction,
+    updateUserAction,
+    fetchUserAction,
+    deleteUserAction,
+    updateAUserAction
+};
