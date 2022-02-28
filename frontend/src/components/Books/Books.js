@@ -34,7 +34,7 @@ const Books = ({history}) => {
                             <tr>
                                 <th scope='col'>Book Name</th>
                                 <th scope='col'>Author</th>
-                                {/*<th scope='col'>Requested by</th>*/}
+                                <th scope='col'>Category</th>
                                 <th scope='col'>Delete</th>
                                 <th scope='col'>Edit</th>
                             </tr>
@@ -46,7 +46,7 @@ const Books = ({history}) => {
                                     <tr className='table-dark' key={book._id}>
                                         <th scope='row'>{book.title}</th>
                                         <td>{book.author}</td>
-                                       {/* <td>{}</td>*/}
+                                        <td>{book.category}</td>
                                         <td>
                                             <i
                                                 onClick={() => deleteBookHandler(book._id)}

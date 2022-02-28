@@ -70,7 +70,8 @@ const AddBook = ({history}) => {
                                                     value={category}
                                                     onChange={e => setCategory(e.target.value)}
                                                     className='custom-select'>
-                                                    <option defaultValue='Programming'>Programming</option>
+                                                    <option defaultValue='Category'>Category</option>
+                                                    <option value='Programming'>Programming</option>
                                                     <option value='Fiction'>Fiction</option>
                                                     <option value='Non-Fiction'>Non-Fiction</option>
                                                     <option value='Conspiracy'>Conspiracy</option>

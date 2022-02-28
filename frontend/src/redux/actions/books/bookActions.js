@@ -115,13 +115,14 @@ const fetchBookAction = (id, bookData) => {
                 type: BOOK_DETAIL_REQUEST,
                 loading: true,
             });
+
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
-            const {data} = await axios.get(`/api/books/${id}`, bookData, config);
+            const {data} = await axios.get(`/api/books/${id}`, config);
 
             dispatch({
                 type: BOOK_DETAIL_SUCCESS,

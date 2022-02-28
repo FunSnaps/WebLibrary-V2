@@ -14,22 +14,26 @@ const UpdateAUser = ({history}) => {
     }, [dispatch, id]);
 
     //Get the user details and fill it in the form
-    const userDetails = useSelector(state => state.userDetails);
+    const userDetails = useSelector(state => state?.userDetails);
     const {userInfo, loading, success} = userDetails;
+
+/*    console.log(userInfo.role, 'sadiyfgaijdshfg');*/
 
     const [name, setName] = useState(userInfo && !loading && userInfo.name);
     const [email, setEmail] = useState(userInfo && !loading && userInfo.email);
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState(userInfo && !loading && userInfo.role);
 
-   /*const updatedUser = useSelector(state => state.updatedUser);
-    const { user } = updatedUser;*/
+    /*const updatedUser = useSelector(state => state.updatedUser);
+     const { user } = updatedUser;*/
 
     //dispatch action
     const formSubmitHandler = e => {
         const data = {
             name,
             email,
-            password
+            password,
+            role,
         };
         e.preventDefault();
         dispatch(updateAUserAction(id, data));
@@ -40,7 +44,7 @@ const UpdateAUser = ({history}) => {
             <div className='col-lg-6 col-md-6 m-auto'>
                 <div className='container'>
                     {userInfo && !loading && success && (
-                        <SuccessMessage message='Updated successfully.' />
+                        <SuccessMessage message='Updated successfully.'/>
                     )}
                     <h1 className='text-center'>Update</h1>
                     <form onSubmit={formSubmitHandler}>
@@ -80,6 +84,21 @@ const UpdateAUser = ({history}) => {
                                     placeholder='Password'
                                 />
                             </div>
+                            {/*{userInfo.role === 'admin' ? (
+                                <div className='form-group'>
+                                    <label htmlFor='exampleInputRole1'>Role</label>
+                                    <input
+                                        value={role}
+                                        onChange={e => setRole(e.target.value)}
+                                        type='role'
+                                        className='form-control'
+                                        id='exampleInputRole1'
+                                        placeholder='Role'
+                                    />
+                                </div>
+                            ) : []
+                            }
+*/}
                             <button type='submit' className='btn btn-primary m-auto'>
                                 Update profile
                             </button>

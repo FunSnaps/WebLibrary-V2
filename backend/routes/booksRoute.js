@@ -55,7 +55,7 @@ bookRouter.route('/:id').delete(expressAsyncHandler(async (req, res) => {
 //Find a book
 bookRouter.route('/:id').get(expressAsyncHandler(async (req, res) => {
     try {
-        const book = await Book.findById(req.params.id);
+        const book = await Book.findById(req?.params.id);
         res?.status(200);
         res?.send(book);
     } catch (error) {

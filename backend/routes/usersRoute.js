@@ -1,6 +1,5 @@
 const express = require("express");
 const User = require("../models/User");
-const { authMiddleware } = require("../middlewares/authMiddleware");
 const tokenGenerator = require("../utils/tokenGenerator");
 const expressAsyncHandler = require("express-async-handler");
 const usersRoute = express.Router();
@@ -31,6 +30,7 @@ usersRoute.route('/login').post(expressAsyncHandler(async (req, res) => {
     const {email, password} = req?.body;
 
     const user = await User.findOne({email});
+    console.log(user);
 
     if (user && (await user.doesPasswordMatch(password))) {
         res?.status(200);
@@ -74,7 +74,27 @@ usersRoute.route('/').get(expressAsyncHandler(async (req, res) => {
 //Update a user
 usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
     try {
-        const updatedUser = await User.findByIdAndUpdate(req?.params.id, req?.body);
+        const user = await User.findById(req?.params.id);
+
+        if (user) {
+            user.name = req?.body.name || user.name;
+            user.email = req?.body.email || user.email;
+
+            if (req?.body.password) {
+                user.password = req.body.password || user.password;
+            }
+
+            const updatedUser = await user.save();
+
+            res?.json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                password: updatedUser.password,
+                email: updatedUser.email,
+                token: tokenGenerator(updatedUser._id),
+            });
+        }
+
         res?.status(200);
         res?.json(updatedUser);
     } catch (error){
@@ -102,7 +122,7 @@ usersRoute.route('/profile').get(expressAsyncHandler(async (req, res) => {
 
 //Update own profile
 usersRoute.route('/profile/update').put(expressAsyncHandler(async (req, res) => {
-        const user = await User.findById(req.user.id);
+        const user = await User.findById(req?.user.id);
         if (user) {
             user.name = req?.body.name || user.name;
             user.email = req?.body.email || user.email;

@@ -12,7 +12,7 @@ const updateAUserReducer = (state = {}, action) => {
             };
         case A_USER_UPDATE_SUCCESS:
             return {
-                book: action.payload,
+                user: action.payload,
                 loading: false,
             };
         case A_USER_UPDATE_FAIL:

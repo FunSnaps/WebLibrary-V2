@@ -124,6 +124,7 @@ const getUserProfileAction = () => {
             const config = {
                 headers: {
                     'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
+                    /*'authorization' : userInfo.token*/
                 }
             };
             const {data} = await axios.get('/api/users/profile', config);
