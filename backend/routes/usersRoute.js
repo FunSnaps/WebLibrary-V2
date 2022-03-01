@@ -79,6 +79,7 @@ usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
         if (user) {
             user.name = req?.body.name || user.name;
             user.email = req?.body.email || user.email;
+            user.role = req?.body.role || user.role;
 
             if (req?.body.password) {
                 user.password = req.body.password || user.password;
@@ -91,6 +92,7 @@ usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
                 name: updatedUser.name,
                 password: updatedUser.password,
                 email: updatedUser.email,
+                role: updatedUser.role,
                 token: tokenGenerator(updatedUser._id),
             });
         }

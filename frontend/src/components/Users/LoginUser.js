@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUserAction} from '../../redux/actions/users/usersActions';
 import ErrorMessage from '../DisplayMessage/ErrorMessage';
-import Loading from "../Loading/Loading";
+import Loading from '../Loading/Loading';
 
 const LoginUser = ({history}) => {
     const [email, setEmail] = useState('');
@@ -17,23 +17,23 @@ const LoginUser = ({history}) => {
 
     const {loading, userInfo, error} = state;
 
+    //Redirect
+    useEffect(() => {
+        if (userInfo) history.push('/profile');
+    }, [dispatch,state, history]);
+
     //Submit handler
     const loginUserSubmitHandler = e => {
         e.preventDefault();
         dispatch(loginUserAction(email, password));
     };
 
-    //Redirect
-    useEffect(() => {
-        if (userInfo) history.push('/profile');
-    }, [state]);
-
     return (
         <div className='row container-height'>
             <div className='col-lg-6 col-md-6 m-auto'>
                 <div className='container'>
-                    {error && <ErrorMessage message='Invalid login credentials!' />}
                     <h1 className='text-center'>Login</h1>
+                    {error && <ErrorMessage error={error} />}
                     {loading && <Loading />}
                     <form onSubmit={loginUserSubmitHandler}>
                         <fieldset>

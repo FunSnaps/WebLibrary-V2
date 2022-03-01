@@ -61,7 +61,9 @@ const registerUserAction = (name, email, password, role) => {
         } catch (error) {
             dispatch({
                 type: USER_REGISTER_FAIL,
-                payload: error.response && error.response.data.message,
+                payload: error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
             });
         }
     };
@@ -95,7 +97,7 @@ const loginUserAction = (email, password) => {
         } catch (error) {
             dispatch({
                 type: USER_LOGIN_FAIL,
-                payload: error.response && error.response.data.message,
+                payload: error.response.data.message,
             });
         }
     };

@@ -9,7 +9,7 @@ const Loading = () => {
                 </div>
             </div>
             <div className="row">
-                <strong>Collecting data</strong>
+                <strong>Loading...</strong>
             </div>
         </div>
     );

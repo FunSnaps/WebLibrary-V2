@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserAction } from '../../redux/actions/users/usersActions';
-import Loading from "../Loading/Loading";
-import ErrorMessage from "../DisplayMessage/ErrorMessage";
+import Loading from '../Loading/Loading';
+import ErrorMessage from '../DisplayMessage/ErrorMessage';
 
 const RegisterUser = ({ history }) => {
     const [name, setName] = useState('');

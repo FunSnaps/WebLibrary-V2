@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchUserAction, updateAUserAction} from '../../redux/actions/users/usersActions';
+import {fetchUserAction, logoutUserAction, updateAUserAction} from '../../redux/actions/users/usersActions';
 import SuccessMessage from "../DisplayMessage/SuccessMessage";
 
 const UpdateAUser = ({history}) => {
@@ -17,15 +17,10 @@ const UpdateAUser = ({history}) => {
     const userDetails = useSelector(state => state?.userDetails);
     const {userInfo, loading, success} = userDetails;
 
-/*    console.log(userInfo.role, 'sadiyfgaijdshfg');*/
-
     const [name, setName] = useState(userInfo && !loading && userInfo.name);
     const [email, setEmail] = useState(userInfo && !loading && userInfo.email);
     const [password, setPassword] = useState('');
     const [role, setRole] = useState(userInfo && !loading && userInfo.role);
-
-    /*const updatedUser = useSelector(state => state.updatedUser);
-     const { user } = updatedUser;*/
 
     //dispatch action
     const formSubmitHandler = e => {
@@ -84,21 +79,19 @@ const UpdateAUser = ({history}) => {
                                     placeholder='Password'
                                 />
                             </div>
-                            {/*{userInfo.role === 'admin' ? (
-                                <div className='form-group'>
-                                    <label htmlFor='exampleInputRole1'>Role</label>
-                                    <input
-                                        value={role}
-                                        onChange={e => setRole(e.target.value)}
-                                        type='role'
-                                        className='form-control'
-                                        id='exampleInputRole1'
-                                        placeholder='Role'
-                                    />
-                                </div>
-                            ) : []
-                            }
-*/}
+                            <br/>
+                            <div className='form-group'>
+                                <select
+                                    value={role}
+                                    onChange={e => setRole(e.target.value)}
+                                    className='custom-select'>
+                                    <option defaultValue='Category'>Role</option>
+                                    <option value='admin'>Admin</option>
+                                    <option value='employee'>Employee</option>
+                                    <option value='user'>User</option>
+                                </select>
+                            </div>
+                            <br/>
                             <button type='submit' className='btn btn-primary m-auto'>
                                 Update profile
                             </button>
