@@ -139,8 +139,7 @@ const getUserProfileAction = () => {
                 type: USER_PROFILE_FAIL,
                 payload: error.response && error.response.data.message,
             });
-        }
-        ;
+        };
 
     };
 };
