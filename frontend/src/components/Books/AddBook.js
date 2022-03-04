@@ -5,6 +5,7 @@ import {createBookAction} from '../../redux/actions/books/bookActions';
 const AddBook = ({history}) => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
+    const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
 
     const userLogin = useSelector(state => state.userLogin);
@@ -23,11 +24,12 @@ const AddBook = ({history}) => {
             title,
             author,
             category,
+            price,
             addedBy: userInfo && userInfo._id,
         };
         e.preventDefault();
         dispatch(createBookAction(data));
-        history.push('/books')
+        history.push('/profile')
     };
     return (
         <div className='row container-height'>
@@ -62,7 +64,7 @@ const AddBook = ({history}) => {
                                     </button>*/}
                                 </div>
                                 <div className='modal-body'>
-                                    <h1 className='text-center'>Add Book</h1>
+                                    <h1 className='text-center'>Request Book</h1>
                                     <form onSubmit={handleFormSubmit}>
                                         <fieldset>
                                             <div className='form-group'>
@@ -78,31 +80,40 @@ const AddBook = ({history}) => {
                                                 </select>
                                             </div>
                                             <div className='form-group'>
-                                                <label htmlFor='exampleInputEmail1'>Author </label>
-                                                <input
-                                                    value={author}
-                                                    onChange={e => setAuthor(e.target.value)}
-                                                    type='text'
-                                                    className='form-control'
-                                                    id='exampleInputEmail1'
-                                                    aria-describedby='emailHelp'
-                                                    placeholder='Author name'
-                                                />
-                                            </div>
-                                            <div className='form-group'>
-                                                <label htmlFor='exampleInputPassword1'>Title</label>
+                                                <label htmlFor='exampleInputTitle1'>Title</label>
                                                 <input
                                                     value={title}
                                                     onChange={e => setTitle(e.target.value)}
                                                     type='text'
                                                     className='form-control'
-                                                    id='exampleInputPassword1'
+                                                    id='exampleInputTitle1'
                                                     placeholder='Book title'
                                                 />
                                             </div>
-
+                                            <div className='form-group'>
+                                                <label htmlFor='exampleInputAuthor1'>Author </label>
+                                                <input
+                                                    value={author}
+                                                    onChange={e => setAuthor(e.target.value)}
+                                                    type='text'
+                                                    className='form-control'
+                                                    id='exampleInputAuthor1'
+                                                    aria-describedby='emailHelp'
+                                                    placeholder='Author name'
+                                                />
+                                            </div>
+                                            <div className='form-group'>
+                                                <label htmlFor='exampleInputPrice1'>Price</label>
+                                                <input
+                                                    value={price}
+                                                    onChange={e => setPrice(e.target.value)}
+                                                    type='text'
+                                                    className='form-control'
+                                                    id='exampleInputPrice1'
+                                                    placeholder='Price'
+                                                />
+                                            </div>
                                             <br/>
-
                                             <button type='submit' className='btn btn-warning m-auto'>
                                                 Create Book
                                             </button>

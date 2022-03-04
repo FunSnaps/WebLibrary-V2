@@ -13,6 +13,14 @@ const bookSchema = new mongoose.Schema({
             type: String,
             required: [true, 'Book category is required!']
         },
+        price: {
+            type: Number,
+            required: [true, 'Book price is required!']
+        },
+        status: {
+            type: String,
+            default: 'Pending'
+        },
         addedBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',

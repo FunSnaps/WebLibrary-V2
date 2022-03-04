@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {logoutUserAction} from '../../redux/actions/users/usersActions';
 
 const Navbar = () => {
@@ -163,11 +163,6 @@ const Navbar = () => {
                                     </li>
                                 ) : []
                                 }
-                                <li className='nav-item'>
-                                    <Link className='nav-link' to='/addbook'>
-                                        Add book
-                                    </Link>
-                                </li>
                                 {user?.role === 'admin' ? (
                                     <li className='nav-item'>
                                         <Link className='nav-link' to='/users'>
@@ -176,6 +171,12 @@ const Navbar = () => {
                                     </li>
                                 ) : []
                                 }
+                                <li className='nav-item'>
+                                    <Link className='nav-link' to='/addbook'>
+                                        Request book
+                                    </Link>
+                                </li>
+
                                 <li className='nav-item'>
                                     <Link
                                         className='nav-link'
@@ -200,7 +201,7 @@ const Navbar = () => {
                             </>
                         )}
 
-                        {/* Drop dowm */}
+                        {/* Drop down */}
                         {userInfo ? (
                             <li className='nav-item dropdown'>
                                 <a

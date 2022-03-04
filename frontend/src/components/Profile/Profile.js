@@ -52,6 +52,7 @@ const Profile = ({history}) => {
                             <tr className='table-dark' key={book._id}>
                                 <th scope='row'>{book.author}</th>
                                 <td>{book.title}</td>
+                                <td>{book.price}</td>
                                 <td>
                                     <i
                                         onClick={() => deleteBookHandler(book._id)}
@@ -98,8 +99,9 @@ const Profile = ({history}) => {
                         <div className='card m-auto ' style={{width: '50%'}}>
                             <img src={pic} className='card-img-top' alt='...'/>
                             <div className='card-body'>
-                                <h5 className='card-title'>{user && user.name}</h5>
-                                <p className='card-text'>{user && user.email}</p>
+                                <h5 className='card-title'>Name: {user && user.name}</h5>
+                                <p className='card-text'>Email: {user && user.email}</p>
+                                <p className='card-text'>Credit: {user && user.credit}</p>
                                 <Link to='/user-update' className='btn btn-primary'>
                                     Update your profile
                                 </Link>

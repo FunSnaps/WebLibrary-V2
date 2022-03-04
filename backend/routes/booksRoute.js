@@ -1,6 +1,5 @@
 const express = require("express");
 const expressAsyncHandler = require('express-async-handler');
-const authMiddleware = require("../middlewares/authMiddleware");
 const Book = require('../models/Book');
 const bookRouter = express.Router();
 

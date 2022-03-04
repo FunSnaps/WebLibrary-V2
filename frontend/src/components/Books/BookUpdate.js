@@ -19,6 +19,7 @@ const BookDetail = ({history}) => {
 
     const [category, setCategory] = useState(book && !loading && book.category);
     const [title, setTitle] = useState(book && !loading && book.title);
+    const [price, setPrice] = useState(book && !loading && book.price);
     const [author, setAuthor] = useState(book && book.author);
 
     //dispatch action
@@ -26,8 +27,11 @@ const BookDetail = ({history}) => {
         const data = {
             category,
             title,
-            author
+            author,
+            price,
         };
+        console.log(data);
+
         e.preventDefault();
         dispatch(updateBookAction(id, data));
         history.push('/profile');
@@ -53,26 +57,38 @@ const BookDetail = ({history}) => {
                                         </select>
                                     </div>
                                     <div className='form-group'>
-                                        <label htmlFor='exampleInputEmail1'>Author </label>
-                                        <input
-                                            value={author}
-                                            onChange={e => setAuthor(e.target.value)}
-                                            type='text'
-                                            className='form-control'
-                                            id='exampleInputEmail1'
-                                            aria-describedby='emailHelp'
-                                            placeholder='Author name'
-                                        />
-                                    </div>
-                                    <div className='form-group'>
-                                        <label htmlFor='exampleInputPassword1'>Title</label>
+                                        <label htmlFor='exampleInputTitle1'>Title</label>
                                         <input
                                             value={title}
                                             onChange={e => setTitle(e.target.value)}
                                             type='text'
                                             className='form-control'
-                                            id='exampleInputPassword1'
+                                            id='exampleInputTitle1'
                                             placeholder='Book title'
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label htmlFor='exampleInputAuthor1'>Author </label>
+                                        <input
+                                            value={author}
+                                            onChange={e => setAuthor(e.target.value)}
+                                            type='text'
+                                            className='form-control'
+                                            id='exampleInputAuthor1'
+                                            aria-describedby='authorHelp'
+                                            placeholder='Author name'
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label htmlFor='exampleInputAuthor1'>Price </label>
+                                        <input
+                                            value={price}
+                                            onChange={e => setPrice(e.target.value)}
+                                            type='text'
+                                            className='form-control'
+                                            id='exampleInputAuthor1'
+                                            aria-describedby='authorHelp'
+                                            placeholder='Book price'
                                         />
                                     </div>
                                     <br/>
@@ -83,7 +99,7 @@ const BookDetail = ({history}) => {
                             </form>
                         </>
                     ) : (
-                        loading && <Loading />
+                        loading && <Loading/>
                     )}
                 </div>
             </div>
