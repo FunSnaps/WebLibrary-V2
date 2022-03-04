@@ -43,6 +43,7 @@ const Profile = ({history}) => {
                         <th scope='col'>Author</th>
                         <th scope='col'>Book Name</th>
                         <th scope='col'>Price</th>
+                        <th scope='col'>Status</th>
                         <th scope='col'>Delete</th>
                         <th scope='col'>Update</th>
                     </tr>
@@ -54,6 +55,7 @@ const Profile = ({history}) => {
                                 <th scope='row'>{book.author}</th>
                                 <td>{book.title}</td>
                                 <td>{book.price}</td>
+                                <td>{book.status}</td>
                                 <td>
                                     <i
                                         onClick={() => deleteBookHandler(book._id)}
