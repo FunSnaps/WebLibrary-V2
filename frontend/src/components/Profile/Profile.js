@@ -42,6 +42,7 @@ const Profile = ({history}) => {
                     <tr>
                         <th scope='col'>Author</th>
                         <th scope='col'>Book Name</th>
+                        <th scope='col'>Price</th>
                         <th scope='col'>Delete</th>
                         <th scope='col'>Update</th>
                     </tr>
