@@ -3,6 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteBookAction, fetchBooksAction, updateBookAction} from '../../redux/actions/books/bookActions';
 import Loading from '../Loading/Loading';
+import {updateAUserAction, fetchUserAction} from "../../redux/actions/users/usersActions";
 
 const Books = ({history}) => {
     const {id} = useParams();
@@ -10,11 +11,28 @@ const Books = ({history}) => {
 
     useEffect(() => {
         dispatch(fetchBooksAction(id));
+        dispatch(fetchUserAction())
     }, [dispatch, id]);
 
     //Taking data from store
     const booksList = useSelector(state => state.booksList);
     const {books, loading} = booksList;
+
+    /*
+        Start by getting current user login info
+        destructure the returned object and call the variable user
+
+        get the list of users
+        destructure the list
+
+        filter through the list and see if the user id matches with any in the userList
+     */
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo: user } = userLogin;
+
+    const usersList = useSelector(state => state.usersList);
+    const {users} = usersList;
 
     //Delete book handler
     const deleteBookHandler = id => {
@@ -23,7 +41,9 @@ const Books = ({history}) => {
     };
 
     //Accept book
-    const acceptBookHandler = book => {
+    const acceptBookHandler = (book) => {
+
+        const user = users?.filter(userObject => userObject._id === book.addedBy._id)[0];
         const data = {
             category: book.category,
             title: book.title,
@@ -39,18 +59,20 @@ const Books = ({history}) => {
             price: book.price,
             status: 'Declined',
         };
-        console.log(data);
 
-        if (book.price <= book.addedBy.credit){
+        const userData = {
+            credit: user.credit - book.price
+        };
+
+        if (book.price <= user.credit){
             dispatch(updateBookAction(book._id, data));
+            dispatch(updateAUserAction(user._id, userData));
         }else{
             dispatch(updateBookAction(book._id, data2));
         }
 
         history.push('/profile');
     };
-
-
 
     return (
         <div>
@@ -75,8 +97,7 @@ const Books = ({history}) => {
                             </tr>
                             </thead>
                             <tbody>
-                            {books &&
-                            books.map(book => {
+                            {books &&  books.map(book => {
                                 /*if (book?.status !== 'Approved')*/
                                 return (
                                     <tr className='table-dark' key={book._id}>

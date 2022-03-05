@@ -197,7 +197,8 @@ const updateAUserAction = (id, userData) => {
                 },
             };
 
-            console.log(id, userData);
+
+
             const {data} = await axios.put(`/api/users/${id}`, userData, config);
 
             dispatch({

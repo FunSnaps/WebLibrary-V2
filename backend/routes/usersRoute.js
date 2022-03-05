@@ -2,11 +2,15 @@ const express = require("express");
 const User = require("../models/User");
 const tokenGenerator = require("../utils/tokenGenerator");
 const expressAsyncHandler = require("express-async-handler");
+const bcrypt = require('bcrypt')
 const usersRoute = express.Router();
 
 //Create user
 usersRoute.route('/register').post(expressAsyncHandler(async (req, res) => {
     const {name, email, password, role} = req?.body;
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
+
 
     const existingUser = await User.findOne({email: email});
     if (existingUser) {
@@ -30,7 +34,7 @@ usersRoute.route('/login').post(expressAsyncHandler(async (req, res) => {
     const {email, password} = req?.body;
 
     const user = await User.findOne({email});
-    console.log(user);
+    console.log(await user.doesPasswordMatch(password));
 
     if (user && (await user.doesPasswordMatch(password))) {
         res?.status(200);
@@ -80,6 +84,7 @@ usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
             user.name = req?.body.name || user.name;
             user.email = req?.body.email || user.email;
             user.role = req?.body.role || user.role;
+            user.credit = req?.body.credit || user.credit;
 
             if (req?.body.password) {
                 user.password = req.body.password || user.password;
@@ -93,6 +98,7 @@ usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
                 password: updatedUser.password,
                 email: updatedUser.email,
                 role: updatedUser.role,
+                credit: updatedUser.credit,
                 token: tokenGenerator(updatedUser._id),
             });
         }

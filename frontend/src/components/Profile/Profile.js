@@ -18,6 +18,7 @@ const Profile = ({history}) => {
     const userLogin = useSelector(state => state.userLogin);
     const {userInfo} = userLogin;
 
+
     useEffect(() => {
         if (userInfo === null) history.push('/profile');
     }, [userInfo, history]);

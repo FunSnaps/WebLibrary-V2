@@ -20,7 +20,7 @@ const Users = ({history}) => {
         history.push('/profile');
     };
 
-    console.log(users, loading, error);
+    /*console.log(users, loading, error);*/
     return (
         <div className='container-fluid'>
             <h1 className='text-center m-5'>List of users {users && users.length}</h1>
