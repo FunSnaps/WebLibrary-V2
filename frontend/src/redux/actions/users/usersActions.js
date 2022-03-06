@@ -118,7 +118,7 @@ const logoutUserAction = () => async dispatch => {
 //Profile action
 const getUserProfileAction = () => {
     return async (dispatch, getState) => {
-        const {userInfo} = getState().userLogin;
+        /*const {userInfo} = getState().userLogin;*/
         try {
             dispatch({
                 type: USER_PROFILE_REQUEST
@@ -196,8 +196,6 @@ const updateAUserAction = (id, userData) => {
                     'authorization': JSON.parse(localStorage.getItem('userAuthData'))?.token,
                 },
             };
-
-
 
             const {data} = await axios.put(`/api/users/${id}`, userData, config);
 

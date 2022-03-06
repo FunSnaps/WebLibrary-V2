@@ -40,6 +40,7 @@ const UpdateProfile = ({history}) => {
                 <div className='form-group'>
                   <label htmlFor='exampleInputName1'>Name</label>
                   <input
+                      required
                       value={name}
                       onChange={e => setName(e.target.value)}
                       type='text'
@@ -52,6 +53,7 @@ const UpdateProfile = ({history}) => {
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Email address</label>
                   <input
+                      required
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       type='email'
@@ -64,6 +66,7 @@ const UpdateProfile = ({history}) => {
                 <div className='form-group'>
                   <label htmlFor='exampleInputPassword1'>Password</label>
                   <input
+                      required
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       type='password'
@@ -72,6 +75,7 @@ const UpdateProfile = ({history}) => {
                       placeholder='Password'
                   />
                 </div>
+                <br/>
                 <button type='submit' className='btn btn-primary m-auto'>
                   Update your profile
                 </button>

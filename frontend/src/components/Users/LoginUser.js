@@ -40,6 +40,7 @@ const LoginUser = ({history}) => {
                             <div className='form-group'>
                                 <label htmlFor='exampleInputEmail'>Email address</label>
                                 <input
+                                    required
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
                                     type='email'
@@ -52,6 +53,7 @@ const LoginUser = ({history}) => {
                             <div className='form-group'>
                                 <label htmlFor='exampleInputPassword'>Password</label>
                                 <input
+                                    required
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                     type='password'
@@ -60,6 +62,7 @@ const LoginUser = ({history}) => {
                                     placeholder='Enter password'
                                 />
                             </div>
+                            <br/>
                             <button type='submit' className='btn btn-info m-auto'>
                                 Login
                             </button>

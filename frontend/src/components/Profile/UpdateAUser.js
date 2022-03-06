@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchUserAction, logoutUserAction, updateAUserAction} from '../../redux/actions/users/usersActions';
+import {fetchUserAction, updateAUserAction} from '../../redux/actions/users/usersActions';
 import SuccessMessage from "../DisplayMessage/SuccessMessage";
 
 const UpdateAUser = ({history}) => {
@@ -21,6 +21,7 @@ const UpdateAUser = ({history}) => {
     const [email, setEmail] = useState(userInfo && !loading && userInfo.email);
     const [password, setPassword] = useState('');
     const [role, setRole] = useState(userInfo && !loading && userInfo.role);
+    const [credit, setCredit] = useState(userInfo && !loading && userInfo.credit);
 
     //dispatch action
     const formSubmitHandler = e => {
@@ -28,6 +29,7 @@ const UpdateAUser = ({history}) => {
             name,
             email,
             password,
+            credit,
             role,
         };
         e.preventDefault();
@@ -77,6 +79,17 @@ const UpdateAUser = ({history}) => {
                                     className='form-control'
                                     id='exampleInputPassword1'
                                     placeholder='Password'
+                                />
+                            </div>
+                            <div className='form-group'>
+                                <label htmlFor='exampleInputCredits1'>Credits</label>
+                                <input
+                                    value={credit}
+                                    onChange={e => setCredit(e.target.value)}
+                                    type='credit'
+                                    className='form-control'
+                                    id='exampleInputCredits'
+                                    placeholder='Credits'
                                 />
                             </div>
                             <br/>

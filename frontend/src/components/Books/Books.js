@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteBookAction, fetchBooksAction, updateBookAction} from '../../redux/actions/books/bookActions';

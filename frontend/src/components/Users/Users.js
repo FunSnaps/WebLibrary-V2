@@ -12,7 +12,7 @@ const Users = ({history}) => {
     }, [dispatch]);
 
     const usersList = useSelector(state => state.usersList);
-    const {loading, users, error} = usersList;
+    const {loading, users} = usersList;
 
     //Delete user handler
     const deleteUserHandler = id => {
