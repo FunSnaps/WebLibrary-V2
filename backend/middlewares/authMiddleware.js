@@ -9,18 +9,12 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
     };
 
     try {
-        console.log('REQ: ', req?.headers.authorization);
-
         const decoded = jwt.verify(req?.headers.authorization, process.env.JWT_SECRET_KEY);
-        console.log('Decoded: ', decoded);
-
         const user = await User.findById(decoded.id);
         req.user = user;
-        console.log('User: ', user);
 
         if (!decoded) {
             res?.status(401);
-            console.log('Token', decoded);
             throw new Error('Not authorised, no token found!');
         }
         next();

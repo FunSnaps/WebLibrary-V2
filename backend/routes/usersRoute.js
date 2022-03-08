@@ -2,15 +2,11 @@ const express = require("express");
 const User = require("../models/User");
 const tokenGenerator = require("../utils/tokenGenerator");
 const expressAsyncHandler = require("express-async-handler");
-const bcrypt = require('bcrypt')
 const usersRoute = express.Router();
 
 //Create user
 usersRoute.route('/register').post(expressAsyncHandler(async (req, res) => {
     const {name, email, password, role} = req?.body;
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedPassword = await bcrypt.hash(password, salt);
-
 
     const existingUser = await User.findOne({email: email});
     if (existingUser) {
@@ -34,7 +30,6 @@ usersRoute.route('/login').post(expressAsyncHandler(async (req, res) => {
     const {email, password} = req?.body;
 
     const user = await User.findOne({email});
-    console.log(await user.doesPasswordMatch(password));
 
     if (user && (await user.doesPasswordMatch(password))) {
         res?.status(200);
@@ -114,7 +109,6 @@ usersRoute.route('/:id').put(expressAsyncHandler(async (req, res) => {
 //ProfileRoute
 usersRoute.route('/profile').get(expressAsyncHandler(async (req, res) => {
     try {
-        console.log(req?.user);
         const user = await User.findById(req?.user.id).populate('books');
         res?.status(404);
         if (!user) throw new Error("You dont have an existing profile!")

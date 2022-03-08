@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 const error = require('./middlewares/errorMiddlewareHandler');
 const auth = require('./middlewares/authMiddleware');
 const usersRoute = require('./routes/usersRoute');
-const booksRouter = require('./routes/booksRoute');
+const booksRoute = require('./routes/booksRoute');
+
 dotenv.config();
 const dbConnect = require('./config/dbConnect');
 
@@ -16,15 +17,20 @@ app.use(express.json());
 
 //Error middleware
 app.use(error?.errorMiddlewareHandler);
-app.use(auth?.authMiddleware);
+
+if (!process.env.NODE_TEST) {
+    app.use(auth?.authMiddleware);
+}
 
 //Routes
 app.use('/api/users', usersRoute);
-app.use('/api/books', booksRouter);
+app.use('/api/books', booksRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port: ${PORT}`);
 });
+
+module.exports = app;
 
 /*
 FunSnaps

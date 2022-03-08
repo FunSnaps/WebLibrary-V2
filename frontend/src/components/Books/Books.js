@@ -44,7 +44,7 @@ const Books = ({history}) => {
     const acceptBookHandler = (book) => {
 
         const user = users?.filter(userObject => userObject._id === book.addedBy._id)[0];
-        const data = {
+        const approved = {
             category: book.category,
             title: book.title,
             author: book.author,
@@ -52,7 +52,7 @@ const Books = ({history}) => {
             status: 'Approved',
         };
 
-        const data2 = {
+        const declined = {
             category: book.category,
             title: book.title,
             author: book.author,
@@ -60,15 +60,15 @@ const Books = ({history}) => {
             status: 'Declined',
         };
 
-        const userData = {
+        const calculateCredit = {
             credit: user.credit - book.price
         };
 
         if (book.price <= user.credit){
-            dispatch(updateBookAction(book._id, data));
-            dispatch(updateAUserAction(user._id, userData));
+            dispatch(updateBookAction(book._id, approved));
+            dispatch(updateAUserAction(user._id, calculateCredit));
         }else{
-            dispatch(updateBookAction(book._id, data2));
+            dispatch(updateBookAction(book._id, declined));
         }
 
         history.push('/profile');

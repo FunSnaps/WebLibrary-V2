@@ -86,7 +86,7 @@ const UpdateAUser = ({history}) => {
                                 <input
                                     value={credit}
                                     onChange={e => setCredit(e.target.value)}
-                                    type='credit'
+                                    type='text'
                                     className='form-control'
                                     id='exampleInputCredits'
                                     placeholder='Credits'

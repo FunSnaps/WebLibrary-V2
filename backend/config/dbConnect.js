@@ -6,7 +6,6 @@ const dbConnect = () => {
         useUnifiedTopology: true
     }, err => {
         if (err) throw err;
-        console.log('Connected to MongoDB!!!')
     });
 };
 

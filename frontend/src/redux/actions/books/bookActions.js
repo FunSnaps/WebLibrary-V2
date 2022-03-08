@@ -77,7 +77,7 @@ const fetchBooksAction = () => {
 };
 
 //Delete a book
-const deleteBookAction = id => {
+const deleteBookAction = (id) => {
     return async dispatch => {
         try {
             dispatch({
@@ -108,7 +108,7 @@ const deleteBookAction = id => {
 };
 
 //Fetch a book
-const fetchBookAction = (id, bookData) => {
+const fetchBookAction = (id) => {
     return async dispatch => {
         try {
             dispatch({
